@@ -1,0 +1,402 @@
+/**
+ * Dashboard Sidebar Module Styles
+ * Optimized version: Anti-jitter, uniform alignment, unified layout stability
+ */
+
+// ============================================================================
+// Design System Variables
+// ============================================================================
+
+// Colors
+$color-bg-light: #f8fafc;
+$color-bg-footer: #f0f9ff;
+$color-text-primary: #0f172a;
+$color-text-secondary: #64748b;
+$color-text-muted: #475569;
+$color-primary: #0ea5e9;
+$color-primary-hover: #38bdf8;
+$color-border: #e2e8f0;
+$color-bg-hover: rgba(148, 163, 184, 0.1);
+
+// Spacing Scale
+$spacing-xs: 0.25rem; // 4px
+$spacing-sm: 0.5rem; // 8px
+$spacing-md: 1rem; // 16px
+$spacing-lg: 1.5rem; // 24px
+$spacing-xl: 2rem; // 32px
+
+// Border & Radius
+$border-width: 1px;
+$border-radius-sm: 0.75rem; // 12px
+$border-radius-md: 1rem; // 16px
+$border-radius-lg: 1.5rem; // 24px
+
+// Typography
+$font-size-xs: 10px;
+$font-size-sm: 12.5px;
+$font-size-base: 13.5px;
+$font-size-lg: 18px;
+$font-weight-semibold: 600;
+$font-weight-bold: 700;
+
+// Animation & Transitions
+$transition-duration: 200ms;
+$transition-default: all $transition-duration ease-in-out;
+$transition-colors: background-color $transition-duration ease-in-out, color $transition-duration ease-in-out;
+
+// ============================================================================
+// Sidebar Container Layout
+// ============================================================================
+
+.sidebar {
+  background-color: $color-bg-light;
+  border-right: $border-width solid $color-border;
+  transition: $transition-default;
+
+  // Trạng thái khi Sidebar thu nhỏ (Collapsed Global State)
+  :global([data-state="collapsed"]) & {
+    .sidebarHeader {
+      padding: $spacing-md $spacing-xs;
+      align-items: center;
+    }
+
+    .switcherMenu {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+    }
+
+    .sidebarContent {
+      padding-left: $spacing-xs;
+      padding-right: $spacing-xs;
+    }
+
+    .navSectionLabel {
+      display: none !important;
+    }
+
+    .menuButton {
+      padding: 0;
+      justify-content: center;
+      height: 2.5rem;
+      width: 2.5rem;
+      margin: 0 auto;
+
+      span {
+        display: none !important;
+      }
+    }
+
+    .sidebarFooter {
+      padding: $spacing-sm $spacing-xs;
+      background-color: transparent;
+      display: flex;
+      justify-content: center;
+    }
+  }
+}
+
+// ============================================================================
+// Sidebar Header & Interactive Logo Brand
+// ============================================================================
+
+.sidebarHeader {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-lg;
+  padding: $spacing-xl $spacing-md $spacing-sm;
+  background-color: $color-bg-light;
+  transition: $transition-default;
+}
+
+.logoBrand {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 2.5rem; /* Khóa chặt chiều cao bằng đúng chiều cao menuButton */
+  width: 100%;
+  overflow: hidden;
+  cursor: pointer;
+  
+  // Trạng thái khi sidebar ĐANG MỞ (Expanded)
+  &[data-state="expanded"] {
+    gap: $spacing-md;
+    padding-left: $spacing-xs;
+
+    .sidebarTriggerWrapper {
+      margin-left: auto;
+      opacity: 1;
+      pointer-events: auto;
+    }
+  }
+
+  // Trạng thái khi sidebar ĐANG ĐÓNG (Collapsed)
+  &[data-state="collapsed"] {
+    justify-content: center;
+    padding: 0;
+
+    .logoText {
+      opacity: 0;
+      width: 0;
+      margin: 0;
+      pointer-events: none;
+    }
+
+    // Ép logo icon ra chính tâm hệ thống
+    .logoIcon {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      opacity: 1;
+      z-index: 1;
+      transition: opacity 0.15s ease-in-out;
+    }
+
+    // Ép nút trigger đè chính tâm khít vào logo icon
+    .sidebarTriggerWrapper {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      opacity: 0;
+      z-index: 2;
+      pointer-events: none;
+      transition: opacity 0.15s ease-in-out;
+    }
+
+    // Hiệu ứng HOVER không giựt lắc: Chỉ mờ và hiện tại chỗ
+    &:hover {
+      .logoIcon {
+        opacity: 0;
+      }
+      .sidebarTriggerWrapper {
+        opacity: 1;
+        pointer-events: auto;
+      }
+    }
+  }
+}
+
+// Logo Icon: Đã đồng bộ kích thước chuẩn với menuButton icon phía dưới
+.logoIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 2.5rem; /* Đồng bộ khít 40px với menuButton để căn lề thẳng hàng */
+  height: 2.5rem;
+  border-radius: $border-radius-md;
+  background-color: $color-primary;
+  color: white;
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.05);
+  transition: opacity 0.2s ease-in-out;
+
+  svg {
+    width: 1.25rem; /* Kích thước chuẩn như các menu icon khác */
+    height: 1.25rem;
+    stroke-width: 2.5;
+  }
+}
+
+.logoText {
+  font-size: $font-size-lg;
+  font-weight: $font-weight-bold;
+  color: $color-text-primary;
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+  transition: opacity 0.15s ease-in-out;
+}
+
+// Khung bọc Trigger triệt tiêu răng cưa viền méo
+.sidebarTriggerWrapper {
+  width: 2.5rem; /* Cố định 40px khít khao với logoIcon */
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: $border-radius-md;
+  overflow: hidden;
+}
+
+// Sidebar Toggle Button Custom
+.sidebarTrigger {
+  width: 100% !important;
+  height: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: $border-radius-md !important;
+  color: $color-text-muted;
+  cursor: pointer;
+  border: none !important;
+  background: transparent;
+  transition: $transition-colors;
+
+  &:hover {
+    background-color: $color-bg-hover !important;
+    color: $color-primary !important;
+  }
+
+  &:active {
+    background-color: rgba($color-primary, 0.1) !important;
+  }
+}
+
+// Organization Switcher Menu
+.switcherMenu {
+  width: 100%;
+  transition: all $transition-duration ease-in-out;
+}
+
+// ============================================================================
+// Sidebar Content
+// ============================================================================
+
+.sidebarContent {
+  background-color: $color-bg-light;
+  padding: 0 $spacing-md;
+  gap: 0;
+  transition: padding $transition-duration ease-in-out;
+}
+
+// ============================================================================
+// Navigation Section
+// ============================================================================
+
+.navSection {
+  padding: 0;
+  margin-bottom: $spacing-lg;
+}
+
+.navSectionLabel {
+  font-size: $font-size-xs;
+  font-weight: $font-weight-bold;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: rgba($color-text-secondary, 0.8);
+  padding-left: $spacing-md;
+  margin-bottom: $spacing-sm;
+  display: block;
+  transition: $transition-default;
+}
+
+.navMenu {
+  gap: 0.375rem;
+}
+
+// ============================================================================
+// Menu Button
+// ============================================================================
+
+.menuButton {
+  height: 2.75rem;
+  padding: ($spacing-sm + 0.125rem) ($spacing-md + 0.375rem);
+  font-size: $font-size-base;
+  letter-spacing: 0;
+  font-weight: $font-weight-semibold;
+  transition: $transition-default;
+  border-radius: $border-radius-lg;
+  display: flex;
+  align-items: center;
+  gap: $spacing-md;
+  cursor: pointer;
+  background-color: transparent;
+  color: $color-text-secondary;
+
+  // Icon styling
+  svg {
+    width: 1.125rem;
+    height: 1.125rem;
+    flex-shrink: 0;
+    color: $color-text-muted;
+    transition: $transition-colors;
+  }
+
+  // Text styling
+  span {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  // Hover state
+  &:hover {
+    background-color: $color-bg-hover;
+    color: $color-primary;
+
+    svg {
+      color: $color-primary;
+    }
+  }
+
+  // Active state
+  &[data-active="true"] {
+    background-color: $color-primary;
+    color: white;
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.05);
+
+    svg {
+      color: white;
+    }
+
+    // Active hover state
+    &:hover {
+      background-color: $color-primary;
+      color: white;
+
+      svg {
+        color: white;
+      }
+    }
+  }
+}
+
+.menuLink {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  gap: $spacing-md;
+  justify-content: inherit;
+}
+
+// ============================================================================
+// Sidebar Footer
+// ============================================================================
+
+.sidebarFooter {
+  gap: $spacing-md;
+  padding: $spacing-md;
+  background-color: $color-bg-footer;
+  transition: all $transition-duration ease-in-out;
+}
+
+// ============================================================================
+// Responsive & Accessibility
+// ============================================================================
+
+@media (max-width: 1023px) {
+  .logoText {
+    display: none;
+  }
+}
+
+// Reduced motion preference
+@media (prefers-reduced-motion: reduce) {
+  .sidebar,
+  .menuButton,
+  .logoBrand,
+  .navSectionLabel {
+    transition: none !important;
+  }
+}
+
+// High contrast mode
+@media (prefers-contrast: more) {
+  .menuButton[data-active="true"] {
+    outline: 2px solid $color-primary;
+    outline-offset: 2px;
+  }
+}
