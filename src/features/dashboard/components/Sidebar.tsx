@@ -21,18 +21,14 @@ const DashboardSidebar = () => {
 
   return (
     <Sidebar collapsible="icon" className={styles.sidebar}>
-      {/* Header Section: Logo + Organization Switcher */}
       <SidebarHeader className={styles.sidebarHeader}>
         <LogoBrand />
-
         <SidebarMenu className={styles.switcherMenu}>
           <SidebarMenuItem>
             <OrgSwitcher />
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarHeader>
-
-      {/* Content Section: Navigation Menus */}
       <SidebarContent className={styles.sidebarContent}>
         <NavSection
           label="Main menu"
@@ -46,7 +42,6 @@ const DashboardSidebar = () => {
         />
       </SidebarContent>
 
-      {/* Footer Section: User Profile */}
       <SidebarFooter className={styles.sidebarFooter}>
         <SidebarMenu>
           <SidebarMenuItem>

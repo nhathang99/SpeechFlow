@@ -3,7 +3,6 @@
  * Renders a group of navigation items with labels
  */
 
-import { FC } from "react";
 import Link from "next/link";
 import {
   SidebarGroup,
@@ -66,5 +65,7 @@ const NavSection = ({ label, items, pathname }: NavSectionProps) => {
     </SidebarGroup>
   );
 };
+
+NavSection.displayName = "NavSection";
 
 export default NavSection;
