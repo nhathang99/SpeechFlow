@@ -37,7 +37,7 @@ export const othersMenuItems: MenuItem[] = [
   },
   {
     title: "Help and support",
-    url: "mailto:business@codewithantonio.com",
+    url: "support@gmail.com",
     icon: Headphones,
   },
 ];
