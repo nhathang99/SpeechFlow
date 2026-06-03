@@ -1,8 +1,3 @@
-/**
- * Navigation Section Component
- * Renders a group of navigation items with labels
- */
-
 import Link from "next/link";
 import {
   SidebarGroup,
@@ -25,7 +20,7 @@ const NavSection = ({ label, items, pathname }: NavSectionProps) => {
   const isItemActive = (itemUrl: string | undefined): boolean => {
     if (!itemUrl) return false;
     if (itemUrl === "/") return pathname === "/";
-    return pathname.startsWith(itemUrl);
+    return pathname === itemUrl || pathname.startsWith(`${itemUrl}/`);
   };
 
   return (
@@ -65,7 +60,5 @@ const NavSection = ({ label, items, pathname }: NavSectionProps) => {
     </SidebarGroup>
   );
 };
-
-NavSection.displayName = "NavSection";
 
 export default NavSection;
