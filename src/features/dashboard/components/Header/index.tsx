@@ -1,10 +1,9 @@
-"use client";
 import Image from "next/image";
-import { useUser } from "@clerk/nextjs";
+import { currentUser } from "@clerk/nextjs/server";
 import styles from "./DashboardHeader.module.scss";
 
-const DashboardHeader = () => {
-  const { user } = useUser();
+const DashboardHeader = async () => {
+  const user = await currentUser();
   const userName = user?.username;
 
   const getGreeting = () => {
@@ -41,6 +40,6 @@ const DashboardHeader = () => {
       </div>
     </div>
   );
-};;;;;
+};
 
 export default DashboardHeader;
