@@ -6,6 +6,7 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
+    --color-sidebar-bg: var(--sidebar-bg);
     --color-background: var(--background);
     --color-foreground: var(--foreground);
     --font-sans: var(--font-inter);
@@ -73,6 +74,7 @@
     --chart-3: oklch(0.779 0.108 350);
     --chart-4: oklch(0.839 0.147 115);
     --chart-5: oklch(0.735 0.17 70);
+    --sidebar-bg: #0EA5E9;
     --sidebar: oklch(1 0 0);
     --sidebar-foreground: oklch(0.514 0 0);
     --sidebar-primary: oklch(0.165 0 0);
@@ -81,6 +83,10 @@
     --sidebar-accent-foreground: oklch(0.165 0 0);
     --sidebar-border: oklch(0.893 0 0);
     --sidebar-ring: oklch(0.686 0 0);
+      --sidebar-primary: #0EA5E9;
+    --sidebar-secondary:#2DD4BF;
+    --sidebar-tertiary: #F0F9FF;
+    --sidebar-neutral: #0F172A;
 }
 
 .dark {
@@ -115,6 +121,8 @@
     --sidebar-accent-foreground: oklch(0.985 0 0);
     --sidebar-border: oklch(1 0 0 / 10%);
     --sidebar-ring: oklch(0.556 0 0);
+  
+
 }
 
 @layer base {
@@ -129,3 +137,4 @@
         cursor: pointer;
     }
 }
+
