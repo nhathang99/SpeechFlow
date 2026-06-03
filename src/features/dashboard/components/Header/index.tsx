@@ -4,7 +4,7 @@ import styles from "./DashboardHeader.module.scss";
 
 const DashboardHeader = async () => {
   const user = await currentUser();
-  const userName = user?.username;
+  const userName = user?.username || "guest";
 
   const getGreeting = () => {
     const hour = new Date().getHours();
